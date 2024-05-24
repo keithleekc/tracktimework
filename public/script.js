@@ -110,16 +110,18 @@ const startTimeOptions = {
     hour12: true
 };
 
-const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
+formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
 document.getElementById('starttime').textContent = formattedStartTime;
 
-// Extract the day, month, and year components and store the date
-const day = startTime.getDate();
-const month = startTime.getMonth() + 1; // Month is zero-based, so add 1
-const year = startTime.getFullYear();
+timerdate = startTime.toISOString();
 
-// Combine the components to create the calendar date string
-timerdate = day + '-' + month + '-' + year;
+// // Extract the day, month, and year components and store the date
+// const day = startTime.getDate();
+// const month = startTime.getMonth() + 1; // Month is zero-based, so add 1
+// const year = startTime.getFullYear();
+
+// // Combine the components to create the calendar date string
+// timerdate = day + '-' + month + '-' + year;
 
 // Call addTime to set expected end time
 addTime();
@@ -172,7 +174,7 @@ startTimer();
 // Function to send the data to the server
 function sendDataToServer() {
     // Send a POST request to the server with the data
-    fetch('/', {
+    fetch('/post-data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -191,8 +193,8 @@ function sendDataToServer() {
 
 // Function to handle the end button click and alert the user
 function endbutton() {
-    const formattedendtime = stopTimer();
-    const timerDisplay = document.getElementById('duration').textContent;
+    formattedendtime = stopTimer();
+    timerDisplay = document.getElementById('duration').textContent;
 
     const startTimeOptions = {
         hour: 'numeric',
@@ -206,24 +208,6 @@ function endbutton() {
     // Send the data to the server
     sendDataToServer();
 }
-
-
-// // Function to handle the end button click and alert the user
-// function endbutton() {
-// const formattedendtime = stopTimer();
-// const timerDisplay = document.getElementById('duration').textContent;
-
-// const startTimeOptions = {
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     hour12: true
-// };
-// const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
-
-
-// alert("\nDate of Time Tracked: " + timerdate + "\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
-// }
-
 
 
 // Function to get user's name

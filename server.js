@@ -42,7 +42,7 @@ app.get('/popup', function(req, res) {
 app.listen(8080);
 
 // Define the route handler for POST requests
-app.post('/', async function(req, res) {
+app.post('/post-data', async function(req, res) {
     // Try-Catch for any errors
     try {
         // Get content from page

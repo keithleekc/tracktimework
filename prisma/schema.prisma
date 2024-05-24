@@ -20,8 +20,8 @@ model Post {
   timerdate           DateTime
   clickedProjectButton  String
   clickedActivityButton String
-  formattedStartTime  DateTime
-  formattedendtime    DateTime
+  formattedStartTime  String
+  formattedendtime    String
   timerDisplay        String
   
 }
