@@ -101,13 +101,23 @@ if (timerInterval) {
 
   // Store the start time
 startTime = new Date();
+
 const startTimeOptions = {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true
 };
+
 const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
 document.getElementById('starttime').textContent = formattedStartTime;
+
+// Extract the day, month, and year components and store the date
+const day = startTime.getDate();
+const month = startTime.getMonth() + 1; // Month is zero-based, so add 1
+const year = startTime.getFullYear();
+
+// Combine the components to create the calendar date string
+timerdate = day + '-' + month + '-' + year;
 
 // Call addTime to set expected end time
 addTime();
@@ -169,7 +179,7 @@ const startTimeOptions = {
 const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
 
 
-alert("\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
+alert("\nDate of Time Tracked: " + timerdate + "\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
 }
 
 
