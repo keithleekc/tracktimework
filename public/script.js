@@ -7,7 +7,9 @@ let timerseconds = 0;
 let timerminutes = 0;
 let timerhours=0;
 let startTime;
-let expectedEndTime;
+let formattedStartTime;
+let formattedendtime;
+let timerDisplay;
 
 // Function to get current time
 function updateTime() {
@@ -170,7 +172,7 @@ startTimer();
 // Function to send the data to the server
 function sendDataToServer() {
     // Send a POST request to the server with the data
-    fetch('/post-data', {
+    fetch('/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
