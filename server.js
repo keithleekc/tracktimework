@@ -50,7 +50,7 @@ app.post('/', async function(req, res) {
 
         // Reload page if empty title or content
         if (!staffname) {
-            console.log("Unable to create new post, no title or content");
+            console.log("Unable to create new entry, no name was entered.");
             res.render('/');
         } else {
             // Create post and store in database

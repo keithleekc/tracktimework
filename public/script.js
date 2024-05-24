@@ -166,21 +166,62 @@ function startbutton() {
 updateTime();
 startTimer();
 }
+
+// Function to send the data to the server
+function sendDataToServer() {
+    // Send a POST request to the server with the data
+    fetch('/post-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            staffname,
+            timerdate,
+            clickedProjectButton,
+            clickedActivityButton,
+            formattedStartTime,
+            formattedendtime,
+            timerDisplay,
+        }),
+    });
+}
+
 // Function to handle the end button click and alert the user
 function endbutton() {
-const formattedendtime = stopTimer();
-const timerDisplay = document.getElementById('duration').textContent;
+    const formattedendtime = stopTimer();
+    const timerDisplay = document.getElementById('duration').textContent;
 
-const startTimeOptions = {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true
-};
-const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
+    const startTimeOptions = {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+    };
+    const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
 
+    alert("\nDate of Time Tracked: " + timerdate + "\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
 
-alert("\nDate of Time Tracked: " + timerdate + "\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
+    // Send the data to the server
+    sendDataToServer();
 }
+
+
+// // Function to handle the end button click and alert the user
+// function endbutton() {
+// const formattedendtime = stopTimer();
+// const timerDisplay = document.getElementById('duration').textContent;
+
+// const startTimeOptions = {
+//     hour: 'numeric',
+//     minute: 'numeric',
+//     hour12: true
+// };
+// const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
+
+
+// alert("\nDate of Time Tracked: " + timerdate + "\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
+// }
+
 
 
 // Function to get user's name
