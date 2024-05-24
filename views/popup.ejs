@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time's Up</title>
+</head>
+<body>
+
+    <h2>Time's up!</h2>
+    <h4>If you need more time, pls press the START button on the page to track the activity again.<p>
+        This window will close in 3 secs... </p></h4>
+
+    <button id="closeButton">Close</button>
+
+    <script>
+        // Add event listener to the close button
+        document.getElementById('closeButton').addEventListener('click', function() {
+            // Close the popup window
+            window.close();
+        });
+    </script>
+</body>
+</html>

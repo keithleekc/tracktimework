@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Time @ Work</title>
+    <link rel="stylesheet" href="/style.css">  
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJF2XSZ8LN"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-BJF2XSZ8LN');
+    </script>
+</head>
+
+<body>
+    
+    <center>
+   
+        <div class="logo">TRACK<br>T  I  M  E</div>
+        <div class="logowork">@ WORK</div>
+        
+        <h3 id="welcomeusername">Welcome</h2>
+        <div id="errormsg"></div>
+        
+
+        <h4 class="page">PROJECT</h4>
+        <div id="Pbutton-container" class="button-container"></div>
+        
+
+        <h4 class="page">ACTIVITY</h4>
+        <div id="button-container" class="button-container"></div>
+        <br>
+
+        <div class="container">
+            <div class="rowbox">Expected Working Time
+            <div id="boxdata">
+                <input type="number" id="inputhrs" placeholder="0" min="0">hr
+                <input type="number" id="inputmins" placeholder="0" min="0" max="59">min
+            </div>
+            
+            <div class="rowbox">Current Start Time
+            <div id="starttime">--:--</div>
+            </div>
+        </div>
+
+        <div class="lowercontainer">
+            <div class="leftbox">Elapsed Duration
+                <div id="duration">--:--</div>
+            </div>
+
+            <div class="rightbox">End Time
+            <div id="endtime">--:--</div>
+            </div>
+            
+            <div><button class="startbutton" onclick="startbutton()">Start</button></div>
+            <div><button class="endbutton" onclick="endbutton()">End Early</button></div>
+        </div>
+
+    <div class="page" style="font-size: 13px;">Please do not disable Pop-up Window within browser for this site so that the webapp can notify you when time is up.</div>
+    </center>
+    
+    <script src="/script.js"></script>
+
+</body>
+</html>

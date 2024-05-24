@@ -1,0 +1,222 @@
+
+.logo {
+    color: Black;
+    font-family: Helvetica neue, sans-serif;
+    font-weight: 100;
+    font-size: 80px;
+    line-height: 0.7;
+    margin-top:40px;
+  }
+
+.logowork {
+    color: grey;
+    font-family: Helvetica neue, sans-serif;
+    font-weight: 100;
+    font-size: 30px;
+    line-height: 0.7;
+    margin-top: 0px;
+  }
+.page {
+  color: Black;
+  font-family: Helvetica neue, sans-serif;
+  font-weight: 100;
+  }
+
+input[type="number"],
+  textarea {
+      width: 50px; /* Set width to 300 pixels */
+      padding: 5px; /* Add padding */
+      font-family: Helvetica neue, sans-serif;
+      font-weight: 300;
+      font-size: 25px;
+      text-align: center;
+      border: 0.5px solid #ccc; /* Add border */
+      border-radius: 6px; /* Add border radius */
+      margin-bottom: 25px
+  }
+
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* 2 columns of equal width */
+  grid-template-rows: repeat(2, 1fr);    /* 4 rows of equal height */
+  gap: 0px;                             /* Optional: spacing between grid items */
+  width: 400px;                      /* Optional: maximum width of the container */
+  margin: 0 auto;                        /* Optional: center the container */
+  margin-top: 0px; 
+}
+
+.lowercontainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns of equal width */
+  grid-template-rows: repeat(0, 0fr);    /* 4 rows of equal height */
+  gap: 0px;                             /* Optional: spacing between grid items */
+  width: 400px;
+  margin: 0 auto;                        /* Optional: center the container */
+  margin-top: 0px; 
+}
+
+
+ .rowbox {
+    color: grey
+    border: 0cap solid #ccc;
+    padding: 20px;
+    font-family: Helvetica neue, sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    text-align: center;
+    border-top: 1px solid lightgrey;
+    
+    }
+
+.leftbox {
+  color: grey
+  border: 0cap solid #ccc;
+  padding-top: 30px;
+  padding-bottom: 0px;
+  font-family: Helvetica neue, sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  text-align: center;
+  border-top: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
+  }
+.rightbox {
+  color: grey
+  border: 0cap solid #ccc;
+  padding-top: 30px;
+  padding-bottom: 0px;
+  font-family: Helvetica neue, sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  text-align: center;
+  border-top: 1px solid lightgrey;
+  }
+
+#boxdata {
+  color: rgb(3, 3, 158);
+  font-size: 25px;
+  font-family: Helvetica neue, sans-serif;
+  font-weight: 200;
+  font-size: 25px;
+}
+
+#currenttime, #endtime, #duration, #starttime {
+  color: rgb(3, 3, 158);
+  font-size: 25px;
+  font-family: Helvetica neue, sans-serif;
+  font-weight: 200;
+  font-size: 25px;
+  }
+
+#welcomeusername {
+    color: black;
+    font-family: Helvetica neue, sans-serif;
+    font-weight: 200;
+    line-height: 0.7;
+    margin-top: 50px;
+}
+
+#errormsg {
+  color: red;
+  font-family: Helvetica neue, sans-serif;
+  font-weight: 200;
+  line-height: 0.7;
+  
+}
+
+.button-container {
+  max-width: 550px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* Center the button container horizontally */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center; /* Center the buttons vertically */
+}
+
+
+.projectbutton {
+  width: 150px;
+  background-color: rgb(124, 124, 250);
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 10px 10px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make the link behave like a button */
+  font-family: Helvetica neue, sans-serif;
+  font-size: 16px; /* Increase font size */
+  margin: 4px 2px; /* Some margin */
+  cursor: pointer; /* Pointer/hand icon on hover */
+  border-radius: 12px; /* Rounded corners */
+}
+
+.projectbutton:hover {
+  background-color: #19006a; 
+}
+
+.projectbutton.clicked {
+  background-color: #19006a; 
+}
+
+.activitybutton {
+  width: 150px;
+  background-color: #bf9a16; /* Green background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 10px 10px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make the link behave like a button */
+  font-family: Helvetica neue, sans-serif;
+  font-size: 16px; /* Increase font size */
+  margin: 4px 2px; /* Some margin */
+  cursor: pointer; /* Pointer/hand icon on hover */
+  border-radius: 12px; /* Rounded corners */
+}
+
+.activitybutton:hover {
+  background-color: #6f8206; /* Darker green on hover */
+}
+
+.activitybutton.clicked {
+  background-color: #6f8206; /* Darker green on clicked */
+}
+
+.startbutton {
+  width: 150px;
+  background-color: #4CAF50; /* Green background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 15px 32px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make the link behave like a button */
+  font-family: Helvetica neue, sans-serif;
+  font-size: 16px; /* Increase font size */
+  cursor: pointer; /* Pointer/hand icon on hover */
+  border-radius: 12px; /* Rounded corners */
+}
+
+.startbutton:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.endbutton {
+  width: 150px;
+  background-color: Red;
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 15px 32px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make the link behave like a button */
+  font-size: 16px; /* Increase font size */
+  font-family: Helvetica neue, sans-serif;
+  cursor: pointer; /* Pointer/hand icon on hover */
+  border-radius: 12px; /* Rounded corners */
+}
+
+.endbutton:hover {
+  background-color: darkred;
+}
