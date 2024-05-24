@@ -51,19 +51,20 @@ app.post('/', async function(req, res) {
         // Reload page if empty title or content
         if (!staffname) {
             console.log("Unable to create new entry, no name was entered.");
-            res.render('/');
-        } else {
-            // Create post and store in database
-            const timetracked = await prisma.post.create({
-                data: { staffname, timerdate, clickedProjectButton, clickedActivityButton, formattedStartTime, formattedendtime, timerDisplay },
-            });
-
-            // Redirect back to the homepage
-            res.redirect('/');
+            return res.status(400).send("Staff name is required.");
         }
+
+        // Create post and store in database
+        const timetracked = await prisma.post.create({
+            data: { staffname, timerdate, clickedProjectButton, clickedActivityButton, formattedStartTime, formattedendtime, timerDisplay },
+        });
+
+        // Redirect to a different page or send a confirmation message
+        res.status(200).send("Data saved successfully!");
     } catch (error) {
         console.log(error);
-        res.render('/');
+        res.status(500).send("Internal server error.");
     }
 });
+
 
