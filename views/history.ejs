@@ -108,7 +108,7 @@
                 var remainingMinutes = totalSum.timerminutesint % 60;
 
                 document.getElementById('totalSum').innerHTML = `
-                    <p>Total Time Tracked for Project: ${totalSum.timerhoursint} hours and ${remainingMinutes} minutes</p>
+                    <p class="page">Total Time Tracked for Project:<b> ${totalSum.timerhoursint} hours and ${remainingMinutes} minutes <b></p>
                 `;
             })
             .catch(error => {
