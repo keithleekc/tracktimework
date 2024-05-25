@@ -104,11 +104,11 @@
                 }, { timerhoursint: 0, timerminutesint: 0 });
 
                 // Convert minutes to hours and minutes
-                var totalHours = Math.floor(totalSum.timerminutesint / 60);
-                var remainingMinutes = totalSum.timerminutesint % 60;
+                var totalHours = Math.floor((totalSum.timerhoursint * 60 + totalSum.timerminutesint) / 60);
+                var totalMinutes = (totalSum.timerminutesint) % 60;
 
                 document.getElementById('totalSum').innerHTML = `
-                    <p class="page">Total Time Tracked for Project:<b> ${totalSum.timerhoursint} hours and ${remainingMinutes} minutes <b></p>
+                    <p class="page">Total Time Tracked for Project:<b> ${totalHours} hours and ${totalMinutes} minutes <b></p>
                 `;
             })
             .catch(error => {

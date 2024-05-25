@@ -60,18 +60,30 @@ expectedEndTime.setMinutes(expectedEndTime.getMinutes() + workmins);
 
 //Function to update timer display
 function updateTimer() {
-    timerseconds++;
+    // Get the current time
+    const currentTime = new Date();
     
-    if (timerseconds === 60) {
-        timerseconds = 0;
-        timerminutes++;
-        timerminutesint++;
-    }
+    // Calculate the difference in milliseconds between the current time and the start time
+    const timeDifference = currentTime.getTime() - startTime.getTime();
 
-    if (timerminutes === 60) {
-        timerminutes = 0;
-        timerhours++;
-    }
+    // Convert the time difference to hours, minutes, and seconds
+    const timerhours = Math.floor(timeDifference / (1000 * 60 * 60));
+    const timerminutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const timerseconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+       
+    //Code based on timer self count (code works but does not work when browser inactive)
+    // timerseconds++;
+    
+    // if (timerseconds === 60) {
+    //     timerseconds = 0;
+    //     timerminutes++;
+    //     timerminutesint++;
+    // }
+
+    // if (timerminutes === 60) {
+    //     timerminutes = 0;
+    //     timerhours++;
+    // }
  const timerDisplay = document.getElementById('duration');
  if (timerDisplay) {
     timerDisplay.textContent = timerhours.toString().padStart(2, '0') + 'hr ' + timerminutes.toString().padStart(2, '0') + 'min ' + timerseconds.toString().padStart(2, '0') + 's';
