@@ -8,9 +8,6 @@ var express = require('express')
 var app = express()
 var path = require('path')
 
-// Setting where the location of your EJS files are
-app.set('views', '.')
-
 // Needed for EJS
 app.set('view engine', 'ejs');
 
@@ -25,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Needed for Prisma to connect to database
-const { PrismaClient } = require('@prisma/client')
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 // root page
@@ -33,10 +30,41 @@ app.get('/', function(req, res) {
    res.render('index');
 });
 
-// About page
+// PopUp page
 app.get('/popup', function(req, res) {
     res.render('popup');
 });
+// Project Tracked Time History Page
+app.get('/history', async function(req, res) {
+    // Try-Catch for any errors
+    try {
+        // Get all unique project names from the clickedProjectButton column
+        const projects = await prisma.post.findMany({
+            distinct: ['clickedProjectButton'],
+            select: {
+                clickedProjectButton: true,
+            },
+        });
+
+        // Get all project tracked history
+        const projhistory = await prisma.post.findMany({
+            orderBy: [
+              {
+                id: 'asc'
+              }
+            ]
+        });
+
+        // Render the history page with all the tracked time and project names
+        res.render('history', { projects: projects, projhistory: projhistory });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal server error.");
+    } 
+});
+
+
+
 
 // Tells the app which port to run on
 app.listen(8000);
@@ -79,3 +107,40 @@ app.post('/post-data', async function(req, res) {
             }
         });
 
+
+// Add a route to fetch project data
+app.get('/project-data/:projectId', async function(req, res) {
+    try {
+        const projectId = req.params.projectId;
+
+        let projectData;
+        if (projectId === '') {
+            // If projectId is empty, fetch all project data
+            projectData = await prisma.post.findMany({
+                orderBy: [
+                    {
+                        id: 'asc'
+                    }
+                ]
+            });
+        } else {
+              // Otherwise, fetch data for the selected project
+              projectData = await prisma.post.findMany({
+                where: {
+                    clickedProjectButton: projectId
+                },
+                orderBy: [
+                    {
+                        id: 'asc'
+                    }
+                ]
+            });
+        }
+
+        // Send the project data as JSON response
+        res.json(projectData);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal server error.");
+    }
+});

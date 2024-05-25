@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Track Time History</title>
+    <link rel="stylesheet" href="/style.css">  
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJF2XSZ8LN"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-BJF2XSZ8LN');
+    </script>
+</head>
+<body>
+    
+    <center>
+   
+        <div class="logo">TRACK<br>T  I  M  E</div>
+        <div class="logowork">@ WORK</div>
+
+        <h3 class="page">Project Tracked Time History</h4>
+
+    <!-- Dropdown box to select project -->
+    <label for="project">Select Project:</label>
+    <select id="project" onchange="loadProjectData()">
+        <option value="">All Projects</option>
+        <% projects.forEach(project => { %>
+            <option value="<%= project.id %>"><%= project.name %></option>
+        <% }) %>
+    </select>
+
+    <!-- Show all tracked time -->
+        <table border="1 id="projectData"">
+            <thead>
+                <tr>
+                    <th>Staff Name</th>
+                    <th>Timer Date</th>
+                    <th>Activity</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Timer Display</th>
+                </tr>
+            </thead>
+            <!-- <tbody>
+                <% projhistory.forEach(post => { %>
+                    <tr>
+                        <td><%= post.staffname %></td>
+                        <td><%= new Date(post.timerdate).toDateString() %></td>
+                        <td><%= post.clickedProjectButton %></td>
+                        <td><%= post.clickedActivityButton %></td>
+                        <td><%= post.formattedStartTime %></td>
+                        <td><%= post.formattedendtime %></td>
+                        <td><%= post.timerDisplay %></td>
+                    </tr>
+                <% }); %>
+            </tbody> -->
+        </table>
+
+        <!-- Script to handle project selection change -->
+    <script>
+        function loadProjectData() {
+            var projectId = document.getElementById('project').value;
+            fetch(`/project-data/${projectId}`)
+            .then(response => response.json())
+            .then(data => {
+                var table = document.getElementById('projectData');
+                table.innerHTML = ''; // Clear existing table data
+                data.forEach(post => {
+                    var row = table.insertRow();
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    var cell5 = row.insertCell(4);
+                    var cell6 = row.insertCell(5);
+                    cell1.textContent = post.staffname;
+                    cell2.textContent = new Date(post.timerdate).toDateString();
+                    cell3.textContent = post.clickedActivityButton;
+                    cell4.textContent = post.formattedStartTime;
+                    cell5.textContent = post.formattedendtime;
+                    cell6.textContent = post.timerDisplay;
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    </center>
+</body>
+</html>
