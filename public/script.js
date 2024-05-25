@@ -10,6 +10,7 @@ let startTime;
 let formattedStartTime;
 let formattedendtime;
 let timerDisplay;
+let timerValues;
 
 // Function to get current time
 function updateTime() {
@@ -77,7 +78,15 @@ function updateTimer() {
 }
     // Check if the time is up
     checkTimeUp();
+
+ // Return values as an object
+ return {
+    hours: timerhours,
+    minutes: timerminutes,
+    seconds: timerseconds
+ };
 }
+
 
 function startTimer() {
 
@@ -173,6 +182,18 @@ startTimer();
 
 // Function to send the data to the server
 function sendDataToServer() {
+    
+    console.log(timerhours);
+    console.log(timerminutes);
+    console.log(timerseconds);
+    console.log(timerDisplay);
+    console.log(timerdate);
+    console.log(formattedStartTime);
+    console.log(formattedendtime);
+    console.log(staffname);
+    console.log(clickedActivityButton);
+    console.log(clickedProjectButton);
+    
     // Send a POST request to the server with the data
     fetch('/post-data', {
         method: 'POST',
@@ -187,7 +208,10 @@ function sendDataToServer() {
             formattedStartTime,
             formattedendtime,
             timerDisplay,
-        }),
+            timerhours,
+            timerminutes,
+            timerseconds,
+            }),
     });
 }
 
@@ -203,7 +227,7 @@ function endbutton() {
     };
     const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
 
-    alert("\nDate of Time Tracked: " + timerdate + "\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
+    alert("\nDate of Time Tracked: " + timerdate + "\n\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
 
     // Send the data to the server
     sendDataToServer();

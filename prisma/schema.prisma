@@ -23,5 +23,8 @@ model Post {
   formattedStartTime  String
   formattedendtime    String
   timerDisplay        String
+  timerhours          Int
+  timerminutes          Int
+  timerseconds          Int
   
 }
