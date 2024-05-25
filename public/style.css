@@ -56,7 +56,15 @@ input[type="number"],
   margin-top: 0px; 
 }
 
-
+.iconcontainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 2 columns of equal width */
+  grid-template-rows: repeat(1, 2fr);    /* 4 rows of equal height */
+  gap: 0px;                             /* Optional: spacing between grid items */
+  width: 400px;                      /* Optional: maximum width of the container */
+  margin: 0 auto;                        /* Optional: center the container */
+  margin-bottom: 20px; 
+}
  .rowbox {
     color: grey
     border: 0cap solid #ccc;
@@ -222,7 +230,7 @@ input[type="number"],
 }
 
 table{
-  width: 100%;
+  width: 70%;
   border-collapse: collapse;
   text-align: left;
   overflow: hidden;

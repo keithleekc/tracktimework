@@ -26,3 +26,16 @@ model Post {
   timerminutesint     Int
   timerhoursint       Int
 }
+
+
+// Projectdb model represents list of projects
+model Projectdb {
+  id        Int       @id @default(autoincrement())
+  ProjectName           String
+  }
+
+// Activitydb model represents list of activities
+model Activitydb {
+  id        Int       @id @default(autoincrement())
+  ActivityName        String
+  }

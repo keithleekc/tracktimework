@@ -25,6 +25,7 @@ app.use(express.urlencoded({extended: true}));
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+// GET PAGES
 // root page
 app.get('/', function(req, res) {
    res.render('index');
@@ -34,6 +35,51 @@ app.get('/', function(req, res) {
 app.get('/popup', function(req, res) {
     res.render('popup');
 });
+
+// Projects page
+app.get('/projects', async function(req, res) {
+        // Try-Catch for any errors
+        try {
+            // Get all project details
+            const projectdetails = await prisma.Projectdb.findMany({
+                    orderBy: [
+                      {
+                        id: 'desc'
+                      }
+                    ]
+            });
+    
+            // Render the project page with all project
+            res.render('projects', { projectdetails: projectdetails });
+          } catch (error) {
+            res.render('projects');
+            console.log(error);
+          } 
+   
+});
+
+// Activities page
+app.get('/activities', async function(req, res) {
+    // Try-Catch for any errors
+    try {
+        // Get all activities details
+        const activitydetails = await prisma.activitydb.findMany({
+                orderBy: [
+                  {
+                    id: 'desc'
+                  }
+                ]
+        });
+
+        // Render the activity page with all project
+        res.render('activities', { activitydetails: activitydetails });
+      } catch (error) {
+        res.render('activity');
+        console.log(error);
+      }
+    });
+
+
 // Project Tracked Time History Page
 app.get('/history', async function(req, res) {
     // Try-Catch for any errors
@@ -63,12 +109,12 @@ app.get('/history', async function(req, res) {
     } 
 });
 
-
-
-
 // Tells the app which port to run on
-app.listen(8000);
+app.listen(5000);
 
+
+
+// ROUTE HANDLERS
 // Define the route handler for POST requests
 app.post('/post-data', async function(req, res) {
     // Try-Catch for any errors
@@ -139,6 +185,114 @@ app.get('/project-data/:projectId', async function(req, res) {
 
         // Send the project data as JSON response
         res.json(projectData);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal server error.");
+    }
+});
+
+
+
+// PROJECT LIST ROUTING
+// Create a new project in Projectdb
+app.post('/create-project', async function(req, res) {
+    // Try-Catch for any errors
+    try {
+        // Get the project name from the submitted form
+        const { ProjectName } = req.body;
+
+        // Create the project and store it in the database
+        const newProject = await prisma.Projectdb.create({
+            data: { ProjectName },
+        });
+
+        // Redirect to the projects page after creating the project
+        res.redirect('/projects');
+    } catch (error) {
+        // Handle any errors
+        console.error(error);
+        res.status(500).send("Internal server error.");
+    }
+});
+
+// Delete a project by id
+app.post("/delete/:id", async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+        await prisma.Projectdb.delete({
+            where: { id: parseInt(id) },
+        });
+      
+        // Redirect back to the projectpage
+        res.redirect('/projects');
+    } catch (error) {
+        console.log(error);
+        res.redirect('/projects');
+    }
+  });
+
+
+// Add a route to fetch project names
+app.get('/project-names', async function(req, res) {
+    try {
+        const projectDetails = await prisma.Projectdb.findMany();
+        const projectNames = projectDetails.map(project => project.ProjectName);
+        res.json({ projectNames: projectNames });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal server error.");
+    }
+});
+
+
+
+// ACTIVITIES LIST ROUTING
+// Create a new activity in Projectdb
+app.post('/create-activity', async function(req, res) {
+    // Try-Catch for any errors
+    try {
+        // Get the activity name from the submitted form
+        const { ActivityName } = req.body;
+
+        // Create the activity and store it in the database
+        const newActivity = await prisma.activitydb.create({
+            data: { ActivityName },
+        });
+
+        // Redirect to the projects page after creating the project
+        res.redirect('/activities');
+    } catch (error) {
+        // Handle any errors
+        console.error(error);
+        res.status(500).send("Internal server error.");
+    }
+});
+
+// Delete a activity by id
+app.post("/delete/:id", async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+        await prisma.activitydb.delete({
+            where: { id: parseInt(id) },
+        });
+      
+        // Redirect back to the projectpage
+        res.redirect('/activities');
+    } catch (error) {
+        console.log(error);
+        res.redirect('/activities');
+    }
+  });
+
+
+// Add a route to fetch activity names
+app.get('/activity-names', async function(req, res) {
+    try {
+        const activitydetails = await prisma.activitydb.findMany();
+        const ActivityNames = activitydetails.map(activity => activity.ActivityName);
+        res.json({ ActivityNames: ActivityNames });
     } catch (error) {
         console.log(error);
         res.status(500).send("Internal server error.");

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects List</title>
+    <title>Activities List</title>
     <link rel="stylesheet" href="/style.css">  
     
     <!-- Google tag (gtag.js) -->
@@ -25,21 +25,21 @@
 
         
 
-<h2 class="page">New Project Creation</h2>  
+<h2 class="page">New Activity Creation</h2>  
       
-    <!-- Form to submit a new project -->
+    <!-- Form to submit a new activity -->
     <div>
-        <form method="post" action="/create-project">
+        <form method="post" action="/create-activity">
           
               <label class="page">
-                Project Name
-                <input name="ProjectName" placeholder="Write the name of the new project to be created.."/>
+                Activity Name
+                <input name="ActivityName" placeholder="Write the name of the new activity to be created.."/>
               </label>
         
             <br> <br>            
             <input
               type="submit"
-              value=" Create Project"
+              value=" Create Activity"
             />
           </form>
     </div>
@@ -51,21 +51,21 @@
       <a href="/">Cancel</a>
     </div>
 <br>
-<h2 class="page">Project List</h2>
+<h2 class="page">Activity List</h2>
 
 <!-- Show all projects -->
 <table id="projectData" style="width:400px">
   <thead>
       <tr>
-          <th>Project</th>
+          <th>Activity</th>
           <th>Action</th>
         </tr>
   </thead>
   <tbody>
-      <% projectdetails.forEach(post => { %>
+      <% activitydetails.forEach(post => { %>
           <tr>
-              <td><%= post.ProjectName %></td>
-              <td> <form action="/delete/<%= post.id %>" method="post" onsubmit="return confirm('Do you really want to delete this post?');">
+              <td><%= post.ActivityName %></td>
+              <td> <form action="/delete/<%= post.id %>" method="post" onsubmit="return confirm('Do you really want to delete this activity?');">
                 <button class="outline primary" type="submit">Delete</button>
             </form></td>
           </tr>

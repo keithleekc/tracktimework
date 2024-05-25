@@ -87,13 +87,16 @@ function updateTimer() {
  const timerDisplay = document.getElementById('duration');
  if (timerDisplay) {
     timerDisplay.textContent = timerhours.toString().padStart(2, '0') + 'hr ' + timerminutes.toString().padStart(2, '0') + 'min ' + timerseconds.toString().padStart(2, '0') + 's';
+    timerhoursint=parseInt(timerhours);
+    timerminutesint=parseInt(timerminutes);
+
 } else {
     console.error('Timer display element not found.');
 }
     checkTimeUp();
 
-    timerhoursint=parseInt(timerhours);
-    timerminutesint=parseInt(timerminutes);
+    //timerhoursint=parseInt(timerhours);
+    //timerminutesint=parseInt(timerminutes);
 
  // Return values as an object
  return timerhours;
@@ -265,23 +268,39 @@ function getname() {
 }
 
 // Creating Project buttons
-// Sample array of button labels
-const PbuttonLabels = ["Project X", "Project NDI", "Project CAM", "Project Z"];
+
+    // Function to fetch project names from the server
+    async function fetchProjectNames() {
+        try {
+            const response = await fetch('/project-names'); // Fetch project names from server endpoint
+            const data = await response.json();
+            return data.projectNames;
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+    }
+
+// // Sample array of button labels
+// const PbuttonLabels = ["Project X", "Project NDI", "Project CAM", "Project Z"];
 
 // Variable to store the clicked button's label
 let clickedProjectButton = null;
 
 // Function to create buttons from the array
-function createPButtons() {
+async function createPButtons() {
     const PbuttonContainer = document.getElementById('Pbutton-container');
 
     // Clear existing buttons
     PbuttonContainer.innerHTML = '';
 
-    // Create buttons from the array
-    PbuttonLabels.forEach(label => {
+    // Fetch project names from the server
+    const projectNames = await fetchProjectNames();
+    
+    // Create buttons from the Projectdb
+    projectNames.forEach(projectName => {
         const projectbutton = document.createElement('button');
-        projectbutton.textContent = label;
+        projectbutton.textContent = projectName;
         projectbutton.classList.add('projectbutton'); // Add CSS class for styling
         projectbutton.addEventListener('click', () => {
                // Remove the "clicked" class from all buttons
@@ -289,7 +308,7 @@ function createPButtons() {
                 button.classList.remove('clicked');
                 });
                 // Store the clicked button's label
-                clickedProjectButton = label;
+                clickedProjectButton = projectName;
                 // Apply the "clicked" style to the clicked button
                 projectbutton.classList.add('clicked');
                 });
@@ -303,23 +322,39 @@ createPButtons();
 
 
 // Creating Activity buttons
-// Sample array of button labels
-const buttonLabels = ["Planning", "Development", "Engagement", "Enhancement", "Service Journey", "UAT"];
+
+  // Function to fetch activity names from the server
+  async function fetchActivityNames() {
+    try {
+        const response = await fetch('/activity-names'); // Fetch activity names from server endpoint
+        const data = await response.json();
+        return data.ActivityNames;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+// // Sample array of button labels
+// const buttonLabels = ["Planning", "Development", "Engagement", "Enhancement", "Service Journey", "UAT"];
 
 // Variable to store the clicked button's label
 let clickedActivityButton = null;
 
 // Function to create buttons from the array
-function createButtons() {
+async function createButtons() {
     const buttonContainer = document.getElementById('button-container');
 
     // Clear existing buttons
     buttonContainer.innerHTML = '';
 
+// Fetch activity names from the server
+const ActivityNames = await fetchActivityNames();
+
     // Create buttons from the array
-    buttonLabels.forEach(label => {
+    ActivityNames.forEach(activityName => {
         const activitybutton = document.createElement('button');
-        activitybutton.textContent = label;
+        activitybutton.textContent = activityName;
         activitybutton.classList.add('activitybutton'); // Add CSS class for styling
         activitybutton.addEventListener('click', () => {
             // Remove the "clicked" class from all buttons
@@ -327,7 +362,7 @@ function createButtons() {
                 button.classList.remove('clicked');
                 });
                 // Store the clicked button's label
-                clickedActivityButton = label;
+                clickedActivityButton = activityName;
                 // Apply the "clicked" style to the clicked button
                 activitybutton.classList.add('clicked');
                                    
