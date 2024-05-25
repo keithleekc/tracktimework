@@ -39,17 +39,17 @@ app.get('/popup', function(req, res) {
 });
 
 // Tells the app which port to run on
-app.listen(8080);
+app.listen(8000);
 
 // Define the route handler for POST requests
 app.post('/post-data', async function(req, res) {
     // Try-Catch for any errors
     try {
                 // Get content from page
-                const { staffname, timerdate, clickedProjectButton, clickedActivityButton, formattedStartTime, formattedendtime, timerDisplay, timerhours, timerminutes, timerseconds } = req.body;
+                const { staffname, timerdate, clickedProjectButton, clickedActivityButton, formattedStartTime, formattedendtime, timerDisplay,timerhoursint,timerminutesint } = req.body;
 
                 // Reload page if empty title or content
-                if (!staffname || !timerdate || !clickedProjectButton || !clickedActivityButton || !formattedStartTime || !formattedendtime || !timerDisplay || !timerhours || !timerminutes || !timerseconds) {
+                if (!staffname || !timerdate || !clickedProjectButton || !clickedActivityButton || !formattedStartTime || !formattedendtime || !timerDisplay) {
                     console.log("Unable to create new entry, some fields are missing.");
                     return res.status(400).send("All fields are required.");
                 }
@@ -64,9 +64,8 @@ app.post('/post-data', async function(req, res) {
                         formattedStartTime, 
                         formattedendtime, 
                         timerDisplay,
-                        timerhours,
-                        timerminutes,
-                        timerseconds,
+                        timerhoursint,
+                        timerminutesint,
                     },
                 });
                 

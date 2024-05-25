@@ -10,7 +10,8 @@ let startTime;
 let formattedStartTime;
 let formattedendtime;
 let timerDisplay;
-let timerValues;
+let timerhoursint;
+let timerminutesint;
 
 // Function to get current time
 function updateTime() {
@@ -60,31 +61,30 @@ expectedEndTime.setMinutes(expectedEndTime.getMinutes() + workmins);
 //Function to update timer display
 function updateTimer() {
     timerseconds++;
+    
+    if (timerseconds === 60) {
+        timerseconds = 0;
+        timerminutes++;
+        timerminutesint++;
+    }
 
- if (timerseconds === 60) {
-     timerseconds = 0;
-     timerminutes++;
- }
- if (timerminutes === 60) {
-     timerminutes = 0;
-     timerhours++;
- }
-
+    if (timerminutes === 60) {
+        timerminutes = 0;
+        timerhours++;
+    }
  const timerDisplay = document.getElementById('duration');
  if (timerDisplay) {
     timerDisplay.textContent = timerhours.toString().padStart(2, '0') + 'hr ' + timerminutes.toString().padStart(2, '0') + 'min ' + timerseconds.toString().padStart(2, '0') + 's';
 } else {
     console.error('Timer display element not found.');
 }
-    // Check if the time is up
     checkTimeUp();
 
+    timerhoursint=parseInt(timerhours);
+    timerminutesint=parseInt(timerminutes);
+
  // Return values as an object
- return {
-    hours: timerhours,
-    minutes: timerminutes,
-    seconds: timerseconds
- };
+ return timerhours;
 }
 
 
@@ -124,14 +124,6 @@ document.getElementById('starttime').textContent = formattedStartTime;
 
 timerdate = startTime.toISOString();
 
-// // Extract the day, month, and year components and store the date
-// const day = startTime.getDate();
-// const month = startTime.getMonth() + 1; // Month is zero-based, so add 1
-// const year = startTime.getFullYear();
-
-// // Combine the components to create the calendar date string
-// timerdate = day + '-' + month + '-' + year;
-
 // Call addTime to set expected end time
 addTime();
 
@@ -167,8 +159,8 @@ function checkTimeUp() {
 const currentTime = new Date();
 if (currentTime > expectedEndTime) {
     stopTimer();
-    openPopup("/popup", "Time's Up!", 400, 300);
-    alert("Time's up! If you need more time, pls press the start button to track the activity again.");
+    //openPopup("/popup", "Time's Up!", 400, 300);
+    //alert("Time's up! If you need more time, pls press the start button to track the activity again.");
     endbutton();
     
 }
@@ -183,9 +175,9 @@ startTimer();
 // Function to send the data to the server
 function sendDataToServer() {
     
-    console.log(timerhours);
-    console.log(timerminutes);
-    console.log(timerseconds);
+    console.log(timerhoursint);
+    console.log(timerminutesint);
+    //console.log(timerseconds);
     console.log(timerDisplay);
     console.log(timerdate);
     console.log(formattedStartTime);
@@ -208,9 +200,8 @@ function sendDataToServer() {
             formattedStartTime,
             formattedendtime,
             timerDisplay,
-            timerhours,
-            timerminutes,
-            timerseconds,
+            timerhoursint,
+            timerminutesint,
             }),
     });
 }
@@ -227,7 +218,7 @@ function endbutton() {
     };
     const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
 
-    alert("\nDate of Time Tracked: " + timerdate + "\n\nTime Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton);
+    alert("Time Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton + "\n\nPls press the START button if you want to continue to track the activity."+"\n\nDate of Time Tracked: " + timerdate);
 
     // Send the data to the server
     sendDataToServer();
