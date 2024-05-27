@@ -16,13 +16,8 @@ let timerminutesint;
 // Function to get current time
 function updateTime() {
 
-const workhrs = parseInt(document.getElementById('inputhrs').value) || 0; // Get hours input value, default to 0 if not provided
-const workmins = parseInt(document.getElementById('inputmins').value) || 0; // Get hours input value, default to 0 if not provided
-
-// Check if either hours or minutes is less than 1
-if (workhrs < 1 && workmins < 1) {
-return; // Exit the function early
-}
+//const workhrs = parseInt(document.getElementById('inputhrs').value) || 0; // Get hours input value, default to 0 if not provided
+//const workmins = parseInt(document.getElementById('inputmins').value) || 0; // Get hours input value, default to 0 if not provided
 
 const now = new Date();
 let hours = now.getHours();
@@ -41,6 +36,11 @@ return timeString;
 function addTime() {
 const workhrs = parseInt(document.getElementById('inputhrs').value) || 0; // Get hours input value, default to 0 if not provided
 const workmins = parseInt(document.getElementById('inputmins').value) || 0; // Get hours input value, default to 0 if not provided
+
+// Check if either hours or minutes is less than 1
+if (workhrs < 1 && workmins < 1) {
+    return; // Exit the function early
+    }
 
 expectedEndTime = new Date(startTime);
 expectedEndTime.setHours(expectedEndTime.getHours() + workhrs);
@@ -95,9 +95,6 @@ function updateTimer() {
 }
     checkTimeUp();
 
-    //timerhoursint=parseInt(timerhours);
-    //timerminutesint=parseInt(timerminutes);
-
  // Return values as an object
  return timerhours;
 }
@@ -108,10 +105,14 @@ function startTimer() {
 const workhrs = parseInt(document.getElementById('inputhrs').value) || 0; // Get hours input value, default to 0 if not provided
 const workmins = parseInt(document.getElementById('inputmins').value) || 0; // Get hours input value, default to 0 if not provided
 
-// Check if either hours or minutes is less than 1
-if (workhrs < 1 && workmins < 1) {
-alert("Please input a valid duration of at least 1 hour or 1 minute.");
-return; // Exit the function early
+// Validate the input
+if (workhrs > 24 || (workhrs === 24 && workmins > 0) || workmins > 59) {
+    alert("Please input a valid duration of the most 23 hours and 59 minutes.");
+    // Clear the input fields or reset them to the maximum values
+    workhrsInput.value = 23;
+    workminsInput.value = 59;
+} else if (workhrs < 1 && workmins < 1) {
+    alert("Please input a valid duration of at least 1 hour or 1 minute.");
 }
 
 // Reset timer values
@@ -233,7 +234,7 @@ function endbutton() {
     };
     const formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
 
-    alert("Time Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton + "\n\nPls press the START button if you want to continue to track the activity."+"\n\nDate of Time Tracked: " + timerdate);
+    alert("Time Tracked: " + timerDisplay + "\nStart Time: " + formattedStartTime + "\nEnd Time: " + formattedendtime + "\nOfficer Name: " + staffname + "\nProject: " + clickedProjectButton + "\nActivity: " + clickedActivityButton + "\n\nPls press the START button if you want to continue to track the activity. However, timer will reset."+"\n\nSystem Date: " + timerdate);
 
     // Send the data to the server
     sendDataToServer();
@@ -251,7 +252,7 @@ window.onload = function() {
 function getname() {
     var staffname = null;
     while (staffname === null || staffname.trim() === "") {
-        staffname = prompt("Good Day! \nMay I have your Name pls?");
+        staffname = prompt("Good Day! \nMay I have your name please?");
         if (staffname === null) {
             // Handle if user cancels the prompt
             document.getElementById('errormsg').textContent = "ERROR: No name entered!";
@@ -281,8 +282,6 @@ function getname() {
         }
     }
 
-// // Sample array of button labels
-// const PbuttonLabels = ["Project X", "Project NDI", "Project CAM", "Project Z"];
 
 // Variable to store the clicked button's label
 let clickedProjectButton = null;
@@ -334,9 +333,6 @@ createPButtons();
         return [];
     }
 }
-
-// // Sample array of button labels
-// const buttonLabels = ["Planning", "Development", "Engagement", "Enhancement", "Service Journey", "UAT"];
 
 // Variable to store the clicked button's label
 let clickedActivityButton = null;
@@ -392,3 +388,4 @@ setTimeout(() => {
 popupWindow.close();
 }, 3000);
 }
+

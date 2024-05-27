@@ -8,13 +8,17 @@
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJF2XSZ8LN"></script>
+    <!-- Include the script.js file -->
+  
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-BJF2XSZ8LN');
-    </script>
+
+       </script>
+
 </head>
 <body>
     
@@ -29,29 +33,23 @@
       
     <!-- Form to submit a new project -->
     <div>
-        <form method="post" action="/create-project">
+      <form method="post" action="/create-project">
           
-              <label class="page">
-                Project Name
-                <input name="ProjectName" placeholder="Write the name of the new project to be created.."/>
-              </label>
-        
-            <br> <br>            
-            <input class="projectbutton"
-              type="submit"
-              value="Create Project"
-            />
-          </form>
+        <label class="page">
+          Project Name
+          <input name="ProjectName" placeholder="Input Here"/>
+        </label>
+  
+      <br> <br>            
+      <input class="projectbutton"
+        type="submit"
+        value="Create Project"
+      />
+    </form>
     </div>
-    <br>
-
-
-    <!-- Back to homepage -->
-    <div class="page">
-      <a href="/">Cancel</a>
-    </div>
+ 
 <br>
-<h2 class="page">Project List</h2>
+<h2 class="page">Current Project List</h2>
 
 <!-- Show all projects -->
 <table id="projectData" style="width:400px">
@@ -65,7 +63,7 @@
       <% projectdetails.forEach(post => { %>
           <tr>
               <td><%= post.ProjectName %></td>
-              <td> <form action="/delete/<%= post.id %>" method="post" onsubmit="return confirm('Do you really want to delete this post?');">
+              <td> <form action="/delete-project/<%= post.id %>" method="post" onsubmit="return confirm('Do you really want to delete this project?');">
                 <button class="activitybutton" type="submit">Delete</button>
             </form></td>
           </tr>
@@ -73,9 +71,21 @@
   </tbody>
 </table>
 
+<br>
+
+  <!-- Back to homepage -->
 
 
+<div>
+  <input class="startbutton" value="Back" style="width: 50px" onclick="window.history.back();">
+  <input class="endbutton" value="Append Changes & Refresh Main Page" style="width: 200px" onclick="window.location.href = '/';">
+  
 
-    </center>
+</div>
+
+  </center>
+
+      
+
 </body>
 </html>

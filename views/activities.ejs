@@ -14,6 +14,7 @@
     gtag('js', new Date());
 
     gtag('config', 'G-BJF2XSZ8LN');
+
     </script>
 </head>
 <body>
@@ -33,7 +34,7 @@
           
               <label class="page">
                 Activity Name
-                <input name="ActivityName" placeholder="Write the name of the new activity to be created.."/>
+                <input name="ActivityName" placeholder="Input Here"/>
               </label>
         
             <br> <br>            
@@ -43,17 +44,11 @@
             />
           </form>
     </div>
-    <br>
-
-
-    <!-- Back to homepage -->
-    <div class="page">
-      <a href="/">Cancel</a>
-    </div>
+    
 <br>
-<h2 class="page">Activity List</h2>
+<h2 class="page">Current Activity List</h2>
 
-<!-- Show all projects -->
+<!-- Show all Activities -->
 <table id="projectData" style="width:400px">
   <thead>
       <tr>
@@ -65,7 +60,7 @@
       <% activitydetails.forEach(post => { %>
           <tr>
               <td><%= post.ActivityName %></td>
-              <td> <form action="/delete/<%= post.id %>" method="post" onsubmit="return confirm('Do you really want to delete this activity?');">
+              <td> <form action="/delete-activity/<%= post.id %>" method="post" onsubmit="return confirm('Do you really want to delete this activity?');">
                 <button class="activitybutton" type="submit">Delete</button>
             </form></td>
           </tr>
@@ -73,6 +68,14 @@
   </tbody>
 </table>
 
+<br>
+
+<!-- Back to homepage -->
+<div>
+  <input class="startbutton" value="Back" style="width: 50px" onclick="window.history.back();">
+  <input class="endbutton" value="Append Changes & Refresh Main Page" style="width: 200px" onclick="window.location.href = '/';">
+  
+</div>
 
 
 

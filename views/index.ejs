@@ -27,7 +27,7 @@
 
         <h3 id="welcomeusername">Welcome</h3>
         <div id="errormsg"></div>
-        
+        <p class="page">Track your project activity below</p>
 
         <h4 class="page">PROJECT</h4>
         <div id="Pbutton-container" class="button-container"></div>
@@ -40,7 +40,7 @@
         <div class="container">
             <div class="rowbox">Expected Working Time
             <div id="boxdata">
-                <input type="number" id="inputhrs" placeholder="0" min="0">hr
+                <input type="number" id="inputhrs" placeholder="0" min="0" max="23">hr
                 <input type="number" id="inputmins" placeholder="0" min="0" max="59">min
             </div>
             
@@ -65,16 +65,16 @@
 
         <div class="iconcontainer">
             <div class="page" style="font-size: 13px;">
-                <div><a href="/history"><img src="historyicon.png" alt="Tracked Time History" width="40px"></a></div>
-                Tracked Time History</div>
+                <div>Tracked Time History</div><a href="/history"><img src="historyicon.png" alt="Tracked Time History" width="40px"></a>
+                </div>
             
             <div class="page" style="font-size: 13px;">
-                <div><a href="/projects"><img src="projecticon.png" alt="Project List" width="40px"></a></div>
-                Project List</div>
+                <div>Project List</div><a href="/projects"><img src="projecticon.png" alt="Project List" width="50px"></a>
+                </div>
             
             <div class="page" style="font-size: 13px;">
-                <div><a href="/activities"><img src="activityicon.png" alt="Activity List" width="40px"></a></div>
-                Activity List</div>
+                <div>Activity List</div><a href="/activities"><img src="activityicon.png" alt="Activity List" width="40px"></a>
+                </div>
 
         </div>
             

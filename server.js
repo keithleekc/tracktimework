@@ -194,7 +194,6 @@ app.get('/project-data/:projectId', async function(req, res) {
 
 
 // PROJECT LIST ROUTING
-// Create a new project in Projectdb
 app.post('/create-project', async function(req, res) {
     // Try-Catch for any errors
     try {
@@ -205,9 +204,10 @@ app.post('/create-project', async function(req, res) {
         const newProject = await prisma.Projectdb.create({
             data: { ProjectName },
         });
-
         // Redirect to the projects page after creating the project
-        res.redirect('/projects');
+             res.redirect('/projects');
+
+
     } catch (error) {
         // Handle any errors
         console.error(error);
@@ -216,7 +216,7 @@ app.post('/create-project', async function(req, res) {
 });
 
 // Delete a project by id
-app.post("/delete/:id", async (req, res) => {
+app.post("/delete-project/:id", async (req, res) => {
     const { id } = req.params;
     
     try {
@@ -224,8 +224,10 @@ app.post("/delete/:id", async (req, res) => {
             where: { id: parseInt(id) },
         });
       
-        // Redirect back to the projectpage
+      
+        // Redirect back to the homepage
         res.redirect('/projects');
+
     } catch (error) {
         console.log(error);
         res.redirect('/projects');
@@ -260,7 +262,7 @@ app.post('/create-activity', async function(req, res) {
             data: { ActivityName },
         });
 
-        // Redirect to the projects page after creating the project
+        // Redirect to the activities page after creating the project
         res.redirect('/activities');
     } catch (error) {
         // Handle any errors
@@ -270,7 +272,7 @@ app.post('/create-activity', async function(req, res) {
 });
 
 // Delete a activity by id
-app.post("/delete/:id", async (req, res) => {
+app.post("/delete-activity/:id", async (req, res) => {
     const { id } = req.params;
     
     try {
@@ -278,7 +280,7 @@ app.post("/delete/:id", async (req, res) => {
             where: { id: parseInt(id) },
         });
       
-        // Redirect back to the projectpage
+        // Redirect back to the homepage
         res.redirect('/activities');
     } catch (error) {
         console.log(error);

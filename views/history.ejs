@@ -14,6 +14,12 @@
     gtag('js', new Date());
 
     gtag('config', 'G-BJF2XSZ8LN');
+
+   // Function to go back to homepage without using link
+   function goBack() {
+     history.back();
+    }
+
     </script>
 </head>
 <body>
@@ -117,9 +123,9 @@
         }
     </script>
     <div class="container">
-        <a href="/"><img src="homeicon.png" alt="Home" width="40px"></a>
+        <center><img src="homeicon.png" alt="Home" width="40px" onclick="goBack()">
             <div class="page" style="font-size: 13px;">Home</div>
-        
+        </center>        
         </div>
     </center>
 </body>
