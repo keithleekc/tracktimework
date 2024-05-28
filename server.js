@@ -25,6 +25,9 @@ app.use(express.urlencoded({extended: true}));
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+
+
+
 // GET PAGES
 // root page
 app.get('/', function(req, res) {
@@ -128,7 +131,7 @@ app.post('/post-data', async function(req, res) {
                     return res.status(400).send("All fields are required.");
                 }
         
-                // Create post and store in database
+                // Create project data and store in database
                 const timetracked = await prisma.post.create({
                     data: { 
                         staffname, 
@@ -154,14 +157,15 @@ app.post('/post-data', async function(req, res) {
         });
 
 
-// Add a route to fetch project data
+// Add a route to fetch project data to Project History page.
 app.get('/project-data/:projectId', async function(req, res) {
     try {
         const projectId = req.params.projectId;
 
+          // If projectId is empty or "Select Project", fetch all project data
         let projectData;
-        if (projectId === '') {
-            // If projectId is empty, fetch all project data
+        if (projectId === '' || projectId === 'All Projects') {
+           
             projectData = await prisma.post.findMany({
                 orderBy: [
                     {
@@ -194,6 +198,8 @@ app.get('/project-data/:projectId', async function(req, res) {
 
 
 // PROJECT LIST ROUTING
+// Create Project in Project List
+
 app.post('/create-project', async function(req, res) {
     // Try-Catch for any errors
     try {
@@ -215,7 +221,7 @@ app.post('/create-project', async function(req, res) {
     }
 });
 
-// Delete a project by id
+// Delete a project by id in Project List
 app.post("/delete-project/:id", async (req, res) => {
     const { id } = req.params;
     
@@ -224,8 +230,7 @@ app.post("/delete-project/:id", async (req, res) => {
             where: { id: parseInt(id) },
         });
       
-      
-        // Redirect back to the homepage
+       // Redirect back to the same page after deletion
         res.redirect('/projects');
 
     } catch (error) {
@@ -235,7 +240,7 @@ app.post("/delete-project/:id", async (req, res) => {
   });
 
 
-// Add a route to fetch project names
+// Add a route to fetch project names in Project List page
 app.get('/project-names', async function(req, res) {
     try {
         const projectDetails = await prisma.Projectdb.findMany();
@@ -250,7 +255,7 @@ app.get('/project-names', async function(req, res) {
 
 
 // ACTIVITIES LIST ROUTING
-// Create a new activity in Projectdb
+// Create a new activity in Activitydb on Activities List Page
 app.post('/create-activity', async function(req, res) {
     // Try-Catch for any errors
     try {
@@ -271,7 +276,7 @@ app.post('/create-activity', async function(req, res) {
     }
 });
 
-// Delete a activity by id
+// Delete a activity by id on Activities List Page
 app.post("/delete-activity/:id", async (req, res) => {
     const { id } = req.params;
     
@@ -280,7 +285,7 @@ app.post("/delete-activity/:id", async (req, res) => {
             where: { id: parseInt(id) },
         });
       
-        // Redirect back to the homepage
+        // Redirect back to the activities
         res.redirect('/activities');
     } catch (error) {
         console.log(error);

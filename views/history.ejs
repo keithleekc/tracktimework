@@ -71,7 +71,7 @@
   <!-- Total Sum of Timer Hours and Minutes for Selected Project -->
   <div id="totalSum"></div>
 
-        <!-- Script to handle project selection change -->
+    <!-- Script to handle project selection change -->
     <script>
         function loadProjectData() {
             var projectId = document.getElementById('project').value;
@@ -101,7 +101,7 @@
                     cell7.textContent = post.timerDisplay;
                   
                 });
-                // Calculate and display total sum of timer hours and minutes
+                // Calculate and display total sum of timer hours and minutes. Acc: Accumulator. Curr: Current. Sums all data in the array, reducing after add.
                 var totalSum = data.reduce((acc, curr) => {
                     return {
                         timerhoursint: acc.timerhoursint + curr.timerhoursint,

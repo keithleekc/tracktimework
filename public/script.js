@@ -13,11 +13,8 @@ let timerDisplay;
 let timerhoursint;
 let timerminutesint;
 
-// Function to get current time
+// Function to get current time and display as current start time
 function updateTime() {
-
-//const workhrs = parseInt(document.getElementById('inputhrs').value) || 0; // Get hours input value, default to 0 if not provided
-//const workmins = parseInt(document.getElementById('inputmins').value) || 0; // Get hours input value, default to 0 if not provided
 
 const now = new Date();
 let hours = now.getHours();
@@ -32,7 +29,7 @@ return timeString;
 }
 
 
-//Update Expected End Time
+//Update Expected End Time adds User input expected working time to starttime and display in End Time field
 function addTime() {
 const workhrs = parseInt(document.getElementById('inputhrs').value) || 0; // Get hours input value, default to 0 if not provided
 const workmins = parseInt(document.getElementById('inputmins').value) || 0; // Get hours input value, default to 0 if not provided
@@ -46,7 +43,7 @@ expectedEndTime = new Date(startTime);
 expectedEndTime.setHours(expectedEndTime.getHours() + workhrs);
 expectedEndTime.setMinutes(expectedEndTime.getMinutes() + workmins);
 
-// Display the result
+// Display the result in End Time Field
     // Define options for 12-hour format with AM/PM
     const options = {
         hour: 'numeric',
@@ -57,8 +54,7 @@ expectedEndTime.setMinutes(expectedEndTime.getMinutes() + workmins);
     document.getElementById('endtime').textContent = formattedTime;
 }
 
-
-//Function to update timer display
+//Function to update timer display that ticks in seconds and function based on the difference of current time and start time
 function updateTimer() {
     // Get the current time
     const currentTime = new Date();
@@ -71,22 +67,12 @@ function updateTimer() {
     const timerminutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
     const timerseconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
        
-    //Code based on timer self count (code works but does not work when browser inactive)
-    // timerseconds++;
-    
-    // if (timerseconds === 60) {
-    //     timerseconds = 0;
-    //     timerminutes++;
-    //     timerminutesint++;
-    // }
-
-    // if (timerminutes === 60) {
-    //     timerminutes = 0;
-    //     timerhours++;
-    // }
- const timerDisplay = document.getElementById('duration');
- if (timerDisplay) {
+  
+    const timerDisplay = document.getElementById('duration');
+    if (timerDisplay) {
     timerDisplay.textContent = timerhours.toString().padStart(2, '0') + 'hr ' + timerminutes.toString().padStart(2, '0') + 'min ' + timerseconds.toString().padStart(2, '0') + 's';
+    
+    //Store timer hours and minutes as interger in variable before they are stored in db later
     timerhoursint=parseInt(timerhours);
     timerminutesint=parseInt(timerminutes);
 
@@ -99,7 +85,8 @@ function updateTimer() {
  return timerhours;
 }
 
-
+// Sets the functions on what to do when timer starts.
+// Validate user expected time, Reset Timer, Clear timerInterval, Store actual start time and date, add expected end time based on actual start time, stops the function when expected time is up.
 function startTimer() {
 
 const workhrs = parseInt(document.getElementById('inputhrs').value) || 0; // Get hours input value, default to 0 if not provided
@@ -138,6 +125,7 @@ const startTimeOptions = {
 formattedStartTime = startTime.toLocaleTimeString('en-US', startTimeOptions);
 document.getElementById('starttime').textContent = formattedStartTime;
 
+//Store date of timer started
 timerdate = startTime.toISOString();
 
 // Call addTime to set expected end time
@@ -150,13 +138,16 @@ checkTimeUp();
  timerInterval = setInterval(updateTimer, 1000);
 }
 
+
+
+// Sets the function on what to do when timer stops
 function stopTimer() {
     if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
     }
     
-     // Capture the actual end time
+// Capture the actual end time
     const actualendtime = new Date();
     const endtimeoptions = {
         hour: 'numeric',
@@ -170,6 +161,8 @@ function stopTimer() {
     return formattedendtime;       
     }
 
+
+
 // Function to check if the time is up
 function checkTimeUp() {
 const currentTime = new Date();
@@ -178,8 +171,7 @@ if (currentTime > expectedEndTime) {
     //openPopup("/popup", "Time's Up!", 400, 300);
     //alert("Time's up! If you need more time, pls press the start button to track the activity again.");
     endbutton();
-    
-}
+    }
 }
   
 // Function to handle the start button click    
@@ -188,7 +180,7 @@ updateTime();
 startTimer();
 }
 
-// Function to send the data to the server
+// Function to send the data of time tracked in the session to the server
 function sendDataToServer() {
     
     console.log(timerhoursint);
@@ -223,6 +215,7 @@ function sendDataToServer() {
 }
 
 // Function to handle the end button click and alert the user
+// When end button function is triggered, Get end time, timer duration, start time; alert user time tracked and store to server db
 function endbutton() {
     formattedendtime = stopTimer();
     timerDisplay = document.getElementById('duration').textContent;
@@ -283,10 +276,10 @@ function getname() {
     }
 
 
-// Variable to store the clicked button's label
+// Variable to store the clicked Project button's label
 let clickedProjectButton = null;
 
-// Function to create buttons from the array
+// Function to create project buttons
 async function createPButtons() {
     const PbuttonContainer = document.getElementById('Pbutton-container');
 
@@ -334,7 +327,7 @@ createPButtons();
     }
 }
 
-// Variable to store the clicked button's label
+// Variable to store the clicked Activity button's label
 let clickedActivityButton = null;
 
 // Function to create buttons from the array
@@ -371,7 +364,7 @@ createButtons();
 
 
 
-// Function to open a pop-up window
+// Function to open a pop-up window - Not in Use Now
 function openPopup(url, title, width, height) {
 // Calculate the position of the window to center it on the screen
 const left = (window.innerWidth - width) / 2;
